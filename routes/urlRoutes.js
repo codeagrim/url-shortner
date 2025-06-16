@@ -1,10 +1,9 @@
 import express from "express";
-
+import { HandleShortenUrl } from "../controllers/urlController.js";
+import {validateUrl} from "../middleware/validate.js"
 const router =  express.Router();
 
 
-router.get('/', (req,res) => {
-    res.send("Hiii")
-})
+router.post('/api/shorten', validateUrl, HandleShortenUrl )
 
 export default router;
