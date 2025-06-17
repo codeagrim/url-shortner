@@ -28,4 +28,31 @@ async function HandleShortenUrl(req, res) {
   }
 }
 
-export { HandleShortenUrl };
+
+
+async function HandleRedirectUrl (req, res)
+{
+  try{
+     const shortid = req.params.shortid;
+  const url = await urlmodel.findOne({shortUrl: shortid}) 
+  if(!url){
+   return res.status(404).json({error: 'URL not found'})
+  }
+
+  // increment click when someone redirect
+  url.clicks += 1;
+  await url.save();
+
+  res.redirect(url.originalUrl)
+  
+}
+
+  catch(err){
+    res.status(500).json({ success: false,
+  message: err.message })
+  }
+ 
+}
+
+export { HandleShortenUrl, HandleRedirectUrl };
+
