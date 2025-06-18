@@ -54,5 +54,35 @@ async function HandleRedirectUrl (req, res)
  
 }
 
-export { HandleShortenUrl, HandleRedirectUrl };
+
+async function HandleUrlAnalytics(req,res){
+
+    const shortid = req.params.shortid;
+    try{
+
+      const url = await urlmodel.findOne({shortUrl : shortid})
+      if(!url)
+      {
+       return res.status(404).json({error: 'URL not found'})
+      }
+      res.json({
+      shortid,
+      originalUrl: url.originalUrl,
+      clicks: url.clicks,
+      createdAt: url.createdAt,
+    });
+
+    }
+
+    catch(err){
+        res.json({success: false, message: err.message})
+
+    }
+  
+
+}
+
+
+
+export { HandleShortenUrl, HandleRedirectUrl, HandleUrlAnalytics };
 
