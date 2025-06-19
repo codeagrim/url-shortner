@@ -1,3 +1,4 @@
+import QRCode from 'qrcode';
 import { customAlphabet, nanoid } from "nanoid";
 import { urlmodel } from "../models/url.model.js";
 
@@ -82,7 +83,38 @@ async function HandleUrlAnalytics(req,res){
 
 }
 
+async function HandleQRCode(req,res) {
+  
 
+  try{
 
-export { HandleShortenUrl, HandleRedirectUrl, HandleUrlAnalytics };
+  const shortid = req.params.shortid;
+  const url = await urlmodel.findOne({shortUrl: shortid})
+
+  if(!url)
+  {
+   return res.status(404).json({error: 'URL not found'})
+  }
+
+  const redirectUrl = url.originalUrl;
+
+    QRCode.toDataURL(redirectUrl)
+  .then(url => {
+    // res.setHeader('Content-Type', 'image/png'); // response body will be a PNG image
+    // res.send(Buffer.from(url.split(',')[1], 'base64'));  // Converts the base64-encoded string into a binary buffer
+    res.json({QRimage: url})
+  })
+  .catch(err => {
+    console.error(err)
+  })
+
+  }
+
+  catch(err){
+    res.status(500).json({message: err.message})
+  }
+
+}
+
+export { HandleShortenUrl, HandleRedirectUrl, HandleUrlAnalytics , HandleQRCode};
 
