@@ -96,7 +96,7 @@ async function HandleQRCode(req,res) {
    return res.status(404).json({error: 'URL not found'})
   }
 
-  const redirectUrl = url.originalUrl;
+  const redirectUrl = `${process.env.BASE_URL}/${url.shortUrl}`
 
     QRCode.toDataURL(redirectUrl)
   .then(url => {
