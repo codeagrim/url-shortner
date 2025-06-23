@@ -8,7 +8,7 @@ A simple and efficient URL shortener built with **Node.js**, **Express**, and **
 
 - Shortens long URLs to short IDs
 - Redirects to the original URL using the short ID
-- Uses MongoDB for storing URL mappings
+- Uses MongoDB for storing URL data
 - REST API powered by Express.js
 - Environment variable support with `dotenv`
 - Add Url to QR Code Functionality
