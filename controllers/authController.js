@@ -11,19 +11,19 @@ async function HandleSignup(req,res)
    
     if(existingUser)
     {
-        res.status(400).json({
+        return res.status(400).json({
             message: "User Already Exists"
         })
     }
 
 
-    const newuser = usermodel.create({
+    const newuser = await usermodel.create({
         username,
         email,
         password
     })
     
-    res.status(201).json({ message: 'User registered successfully' });
+    return res.status(201).json({ message: 'User registered successfully' });
 }
 
 
@@ -37,10 +37,11 @@ async function HandleLogin(req, res)
     const user = await usermodel.findOne({email, password})
     
     if(!user){
-        res.json({message: "User Not Found !! Sign Up First"})
+        return res.json({message: "User Not Found !! Sign Up First"})
     }
 
-    
+    const isMatch = await bcrypt.compare(password, user.password);
+
 
 }
 
