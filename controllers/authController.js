@@ -22,6 +22,8 @@ async function HandleSignup(req, res) {
   return res.status(201).json({ message: "User registered successfully" });
 }
 
+
+
 async function HandleLogin(req, res) {
   const { email, password } = req.body;
 
@@ -39,13 +41,21 @@ async function HandleLogin(req, res) {
 
   //server checks the credentials if valid server jwt banata hai jaisa niche ho rha hai
 
-  // Server sends JWT as a JSON response
+  // Server sends JWT as a JSON response or as a cookie
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-  res.json({ token });
+  res.cookie("jwt", token, {
+  httpOnly: true,
+  sameSite: "strict",
+  maxAge: 3600000, // 1 hour
+});
+
+return res.json({ message: "Login successful" });
 }
+
+// handle logout in future
 
 export { HandleLogin, HandleSignup };
