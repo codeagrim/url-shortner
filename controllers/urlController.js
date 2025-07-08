@@ -24,7 +24,7 @@ async function HandleShortenUrl(req, res) {
 
     let url = await urlmodel.findOne({ originalUrl });
     if(url){
-       return res.json({
+       return res.status(409).json({
         message: "Url Already Exists"
         })
     }

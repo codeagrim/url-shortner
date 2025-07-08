@@ -30,7 +30,7 @@ async function HandleLogin(req, res) {
   const user = await usermodel.findOne({ email });
 
   if (!user) {
-    return res.json({ message: "User Not Found !! Sign Up First" });
+    return res.status(404).json({ message: "User Not Found !! Sign Up First" });
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
