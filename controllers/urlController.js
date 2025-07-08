@@ -2,6 +2,20 @@ import QRCode from 'qrcode';
 import { customAlphabet, nanoid } from "nanoid";
 import { urlmodel } from "../models/url.model.js";
 
+
+
+async function HandleDashboard(req, res){
+
+  try {
+    const userId = req.user._id;
+    const urls = await urlmodel.find({ createdBy: userId });
+
+    return res.status(200).json(urls);
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+}
+
 async function HandleShortenUrl(req, res) {
 
     const { originalUrl } = req.body; // req.body.originalUrl
@@ -21,6 +35,7 @@ async function HandleShortenUrl(req, res) {
     await urlmodel.create({
       originalUrl,
       shortUrl: shortID,
+      createdBy: req.user._id,
     });
 
     res.status(200).json({ shortId: `${shortID}` });
@@ -66,6 +81,7 @@ async function HandleUrlAnalytics(req,res){
       {
        return res.status(404).json({error: 'URL not found'})
       }
+
       res.json({
       shortid,
       originalUrl: url.originalUrl,
@@ -116,5 +132,5 @@ async function HandleQRCode(req,res) {
 
 }
 
-export { HandleShortenUrl, HandleRedirectUrl, HandleUrlAnalytics , HandleQRCode};
+export { HandleDashboard, HandleShortenUrl, HandleRedirectUrl, HandleUrlAnalytics , HandleQRCode};
 
