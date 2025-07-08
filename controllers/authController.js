@@ -53,8 +53,10 @@ async function HandleLogin(req, res) {
   maxAge: 3600000, // 1 hour
 });
 
-return res.json({ message: "Login successful" });
+// return res.json({ message: "Login successful" });
+return res.json({token});
 }
+
 
 // handle logout in future
 

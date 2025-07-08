@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const accountSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     username: {
         type: String,
@@ -32,7 +32,7 @@ const accountSchema = new mongoose.Schema({
 );
 
 
-accountSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -42,4 +42,4 @@ accountSchema.pre('save', async function (next) {
 
 
 
-export const usermodel = mongoose.model('User', accountSchema)
+export const usermodel = mongoose.model('User', userSchema)
