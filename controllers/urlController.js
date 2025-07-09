@@ -26,7 +26,7 @@ async function HandleShortenUrl(req, res) {
     if(url){
        return res.status(409).json({
         message: "Url Already Exists"
-        })
+        , shortId: url.shortUrl})
     }
 
     // it generates id with length 8
@@ -35,7 +35,7 @@ async function HandleShortenUrl(req, res) {
     await urlmodel.create({
       originalUrl,
       shortUrl: shortID,
-      createdBy: req.user._id,
+      // createdBy: req.user._id,
     });
 
     res.status(200).json({ shortId: `${shortID}` });
@@ -105,7 +105,10 @@ async function HandleQRCode(req,res) {
   try{
 
   const shortid = req.params.shortid;
-  const url = await urlmodel.findOne({shortUrl: shortid})
+
+const url = await urlmodel.findOne({ shortUrl: shortid });
+
+  // const url = await urlmodel.findOne({shortUrl: shortid})
 
   if(!url)
   {
@@ -121,8 +124,9 @@ async function HandleQRCode(req,res) {
     res.json({QRimage: url})
   })
   .catch(err => {
-    console.error(err)
-  })
+    console.error('QR generation failed:', err);
+    res.status(500).json({ message: 'QR generation failed' });
+  });
 
   }
 

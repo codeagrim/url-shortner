@@ -5,10 +5,10 @@ import { authCheck } from "../middleware/authMiddleware.js";
 const router =  express.Router();
 
 
-router.get('/dashboard', authCheck, HandleDashboard)
-router.post('/api/shorten', validateUrl, authCheck, HandleShortenUrl )
+router.get('/dashboard',  HandleDashboard) // add authcheck
+router.post('/api/shorten', validateUrl, HandleShortenUrl ) // add authcheck
 router.get('/:shortid', HandleRedirectUrl)
-router.get('/api/analytics/:shortid', authCheck, HandleUrlAnalytics )
-router.get('/qr/:shortid', authCheck, HandleQRCode)
+router.get('/api/analytics/:shortid', HandleUrlAnalytics ) // add authcheck
+router.get('/qr/:shortid', HandleQRCode) // add authcheck
 
 export default router;
