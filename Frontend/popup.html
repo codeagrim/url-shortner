@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <button id="theme-toggle" aria-label="Toggle theme">
+      <svg id="theme-icon" class="theme-icon" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+      </svg>
+    </button>
+    <!-- Main section -->
+    <div id="main-section" class="section">
+      <div class="header">
+        <h2>URL Shortener</h2>
+      </div>
+      <!-- Shorten URL -->
+      <div class="section-content">
+        <h3>Shorten URL</h3>
+        <form id="shorten-form">
+          <input type="url" id="original-url" placeholder="Enter URL (e.g., https://example.com)" required aria-label="URL to shorten">
+          <button type="submit" aria-label="Shorten URL">Shorten</button>
+        </form>
+        <div id="shortened-result" class="hidden">
+          <p>Short URL: <a id="short-url" href="#" target="_blank"></a></p>
+          <button id="copy-btn" aria-label="Copy short URL">Copy</button>
+        </div>
+      </div>
+      <!-- QR Code -->
+      <div class="section-content">
+        <h3>QR Code</h3>
+        <div id="qr-result" class="hidden">
+          <img id="qr-image" src="" alt="QR Code">
+          <a id="download-qr" href="#" download="qr-code.jpeg" aria-label="Download QR code">Download QR Code</a>
+        </div>
+      </div>
+    </div>
+    <!-- Error Message -->
+    <div id="error-message" class="hidden" role="alert"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "URL Shortener",
+  "version": "1.0",
+  "description": "Shorten URLs, view analytics, and generate QR codes with your own URL shortener.",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "contextMenus",
+    "cookies",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "48": "icon.png"
+  }
+}
