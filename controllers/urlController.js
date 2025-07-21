@@ -51,12 +51,17 @@ async function HandleRedirectUrl (req, res)
   try{
      const shortid = req.params.shortid;
   const url = await urlmodel.findOne({shortUrl: shortid}) 
+
   if(!url){
    return res.status(404).json({error: 'URL not found'})
   }
 
   // increment click when someone redirect
   url.clicks += 1;
+
+  // update LastVisited
+    url.lastVisited = new Date();
+
   await url.save();
 
   res.redirect(url.originalUrl)

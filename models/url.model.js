@@ -17,6 +17,13 @@ const urlSchema = new mongoose.Schema({
         default: 0
     },
 
+    lastVisited: {
+
+        type: Date,
+        default: null,
+
+    },
+
     createdAt: {
         type: Date,
         default: Date.now,
