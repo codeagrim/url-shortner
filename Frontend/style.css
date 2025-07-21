@@ -167,11 +167,6 @@ button:disabled {
   background: linear-gradient(90deg, rgb(2, 132, 199), rgb(219, 39, 119));
 }
 
-#copy-btn:hover:not(:disabled) {
-  background: linear-gradient(90deg, #6b7280, #9ca3af);
-}
-
-
 #qr-result {
   margin-top: 12px;
 }

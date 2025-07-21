@@ -7,6 +7,7 @@ const showSection = (sectionId) => {
     div.classList.add('hidden');
     console.log(`Hiding div: ${div.id}`);
   });
+  
   const section = document.getElementById(sectionId);
   if (section) {
     section.classList.remove('hidden');
